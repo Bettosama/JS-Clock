@@ -1,11 +1,50 @@
 //Variables
+let time = 0;
+let timerID = 0;
+let timerOut = true;
 
-//Elements in a variable
 
-//use this function to start the timer
+//Elements
 
-//this function update the timer values
+const start = document.querySelector("#start");
+const reset = document.querySelector("#reset");
+const timer = document.querySelector("#time-display");
 
-// stop and clear the timer
 
-// Start the timer
+
+const initClock = () => {
+    timerOut = false;
+    timerID = setInterval(() => {
+        time++;
+        timerCount();
+    }, 1000);
+};
+const timerCount = () => {
+    const min = Math.floor(time/60);
+    const sec = time%60;
+
+    if(sec < 10){
+        timer.innerHTML = `${min}:0${sec}`;
+    } else {
+        timer.innerHTML = `${min}:${sec}`;
+    }
+};
+
+const stopClock = () => {
+    clearInterval(timerID);    
+}
+
+start.addEventListener("click", function(){
+    if(timerOut){
+        initClock();
+    }
+
+});
+
+reset.addEventListener("click", function(){
+    stopClock();
+    timerOut = true;
+    time=0;
+    timerCount();
+});
+
